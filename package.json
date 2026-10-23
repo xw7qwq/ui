@@ -1,0 +1,51 @@
+{
+  "name": "@xw7/ui",
+  "version": "0.1.0",
+  "private": true,
+  "description": "xw7 的共享界面：设计令牌、主题、导航、格式化工具和 Svelte 组件，博客和面板共用。",
+  "license": "MIT",
+  "author": "Lucius7",
+  "homepage": "https://github.com/xw7qwq/ui#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xw7qwq/ui.git"
+  },
+  "type": "module",
+  "files": [
+    "src"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "svelte": "./src/index.js",
+  "exports": {
+    ".": {
+      "svelte": "./src/index.js",
+      "default": "./src/index.js"
+    },
+    "./tokens.css": "./src/tokens.css",
+    "./base.css": "./src/base.css",
+    "./format": "./src/format.js",
+    "./nav": "./src/nav.js",
+    "./platforms": "./src/platforms.js",
+    "./scale": "./src/scale.js",
+    "./theme": "./src/theme.js",
+    "./components/*.svelte": {
+      "svelte": "./src/components/*.svelte",
+      "default": "./src/components/*.svelte"
+    }
+  },
+  "scripts": {
+    "check": "node --test"
+  },
+  "peerDependencies": {
+    "svelte": "^5.0.0"
+  },
+  "devDependencies": {
+    "svelte": "5.57.2"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "packageManager": "pnpm@10.28.0"
+}
