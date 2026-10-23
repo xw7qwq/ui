@@ -31,7 +31,9 @@
       const weekday = index % 7;
       if (day.endsWith('-01') || day === start) {
         const month = Number(day.slice(5, 7)) - 1;
-        if (!months.length || months.at(-1).week !== week) months.push({ week, label: MONTHS[month] });
+        // 开头不满一个月时，下个月的标签离得太近就让给下个月。
+        if (months.length === 1 && months[0].partial && week - months[0].week < 3) months.pop();
+        if (!months.length || months.at(-1).week !== week) months.push({ week, label: MONTHS[month], partial: day === start && !day.endsWith('-01') });
       }
       cells.push({ day, week, weekday, count: Number(values?.[day] ?? 0) });
       index++;

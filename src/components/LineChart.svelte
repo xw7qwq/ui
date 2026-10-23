@@ -46,15 +46,27 @@
   const xOf = $derived((day) => x(dayToMs(day)));
   const y = $derived(linear([ticks[0], ticks.at(-1)], [height - PAD.bottom, PAD.top]));
 
+  // 首尾两个刻度总是显示；末尾离上一个刻度太近时替换掉上一个，避免文字重叠。
   const xTicks = $derived.by(() => {
     if (!days.length) return [];
     const count = Math.max(2, Math.min(6, Math.floor(width / 110)));
     const step = Math.max(1, Math.round((days.length - 1) / (count - 1)));
     const picked = [];
-    for (let i = 0; i < days.length; i += step) picked.push(days[i]);
-    if (picked.at(-1) !== days.at(-1)) picked.push(days.at(-1));
-    return picked;
+    for (let i = 0; i < days.length; i += step) picked.push(i);
+    const last = days.length - 1;
+    if (picked.at(-1) !== last) {
+      if (picked.length > 1 && last - picked.at(-1) < step / 2) picked.pop();
+      picked.push(last);
+    }
+    return picked.map((i) => days[i]);
   });
+
+  function anchor(day) {
+    if (xTicks.length < 2) return 'middle';
+    if (day === xTicks[0]) return 'start';
+    if (day === xTicks.at(-1)) return 'end';
+    return 'middle';
+  }
 
   function areaPath(points) {
     const valid = points.filter((p) => p.y !== null && p.y !== undefined && !Number.isNaN(p.y));
@@ -105,7 +117,7 @@
         <text class="ylabel" x={PAD.left - 6} y={y(tick) + 4}>{yFormat(tick)}</text>
       {/each}
       {#each xTicks as day (day)}
-        <text class="xlabel" x={xOf(day)} y={height - 8}>{xFormat(day)}</text>
+        <text class="xlabel" x={xOf(day)} y={height - 8} text-anchor={anchor(day)}>{xFormat(day)}</text>
       {/each}
       {#each series as s, index (s.id ?? index)}
         {#if area && index === 0}
@@ -165,7 +177,6 @@
   .xlabel {
     fill: var(--text-3);
     font-size: 10.5px;
-    text-anchor: middle;
   }
 
   .cursor {
