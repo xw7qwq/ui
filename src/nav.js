@@ -1,7 +1,7 @@
 // 全站导航。博客和面板的顶栏都从这里生成，保证入口、顺序和名字一致。
 export const SITES = Object.freeze({
   blog: 'https://blog.lucius7.cn/',
-  panel: 'https://lucius7.dev/',
+  panel: 'https://panel.lucius7.dev/',
   github: 'https://github.com/xw7qwq',
 });
 

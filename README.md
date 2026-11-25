@@ -1,8 +1,8 @@
 # ui
 
-xw7 的共享界面：一套设计令牌、主题切换、导航和 Svelte 组件，[博客](https://blog.lucius7.cn/)和[面板](https://lucius7.dev/)都从这里取样式。
+xw7 的共享界面：一套设计令牌、主题切换、导航和 Svelte 组件，[博客](https://blog.lucius7.cn/)和[面板](https://panel.lucius7.dev/)都从这里取样式。
 
-[面板](https://lucius7.dev/) · [博客](https://blog.lucius7.cn/) · [组织](https://github.com/xw7qwq)
+[面板](https://panel.lucius7.dev/) · [博客](https://blog.lucius7.cn/) · [组织](https://github.com/xw7qwq)
 
 ## 内容
 
@@ -30,7 +30,7 @@ xw7 的共享界面：一套设计令牌、主题切换、导航和 Svelte 组�
 在 Svelte 5 项目里用 Git 依赖安装，版本用标签固定：
 
 ```sh
-pnpm add github:xw7qwq/ui#v0.1.0
+pnpm add github:xw7qwq/ui#v0.1.1
 ```
 
 ```js

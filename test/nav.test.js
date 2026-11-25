@@ -1,11 +1,12 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { PANEL_SECTIONS, panelNav, sectionFor } from '../src/nav.js';
+import { PANEL_SECTIONS, SITES, panelNav, sectionFor } from '../src/nav.js';
 import { PLATFORMS, platform, platformId } from '../src/platforms.js';
 
 test('面板导航：内部相对路径，外部绝对路径', () => {
   assert.equal(panelNav()[1].href, '/oj/');
-  assert.equal(panelNav('https://lucius7.dev/')[1].href, 'https://lucius7.dev/oj/');
+  assert.equal(panelNav(SITES.panel)[1].href, 'https://panel.lucius7.dev/oj/');
+  assert.equal(panelNav('https://example.com')[1].href, 'https://example.com/oj/');
   assert.equal(PANEL_SECTIONS.filter((item) => item.private).map((item) => item.id).join(), 'ledger');
 });
 
