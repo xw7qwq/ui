@@ -41,12 +41,19 @@
     background: var(--surface-2);
   }
 
+  /* 窄屏放不下时，操作区整块换到标题下面，不挤压标题。 */
   header {
     display: flex;
+    flex-wrap: wrap;
     align-items: flex-start;
     justify-content: space-between;
-    gap: var(--space-3);
+    gap: var(--space-2) var(--space-3);
     margin-bottom: var(--space-4);
+  }
+
+  .titles {
+    flex: 1 1 12rem;
+    min-width: 0;
   }
 
   h2 {
@@ -63,8 +70,8 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: flex-end;
     gap: var(--space-2);
+    max-width: 100%;
   }
 
   .more {
