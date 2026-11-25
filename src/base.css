@@ -125,6 +125,7 @@ table {
   color: var(--text);
   font-size: var(--text-sm);
   font-weight: 550;
+  white-space: nowrap;
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s, color 0.15s;
 }

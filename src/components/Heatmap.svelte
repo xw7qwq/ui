@@ -82,54 +82,57 @@
   });
 </script>
 
-<div class="xw7-heatmap" bind:this={scroller}>
-  <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height} role="img" aria-label={ariaLabel}>
-    {#each layout.months as month (month.week)}
-      <text class="month" x={LEFT + month.week * (CELL + GAP)} y={11}>{month.label}</text>
-    {/each}
-    <text class="weekday" x="0" y={TOP + 0 * (CELL + GAP) + 10}>一</text>
-    <text class="weekday" x="0" y={TOP + 2 * (CELL + GAP) + 10}>三</text>
-    <text class="weekday" x="0" y={TOP + 4 * (CELL + GAP) + 10}>五</text>
-    {#if onselect}
-      <!-- 可点选时整张图只占一个 Tab 位，方向键按日/周移动，回车选中。 -->
-      {#each layout.cells as cell (cell.day)}
-        <rect
-          x={LEFT + cell.week * (CELL + GAP)}
-          y={TOP + cell.weekday * (CELL + GAP)}
-          width={CELL}
-          height={CELL}
-          rx="2.5"
-          class="cell clickable"
-          class:selected={selected === cell.day}
-          style:fill={`var(--heat-${level(cell.count)})`}
-          data-day={cell.day}
-          role="button"
-          tabindex={cell.day === focusDay ? 0 : -1}
-          aria-label={label(cell.day, cell.count)}
-          aria-pressed={selected === cell.day}
-          onclick={() => choose(cell.day)}
-          onkeydown={(event) => onkey(event, cell.day)}
-        >
-          <title>{label(cell.day, cell.count)}</title>
-        </rect>
+<div class="xw7-heatmap">
+  <div class="scroller" bind:this={scroller}>
+    <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height} role="img" aria-label={ariaLabel}>
+      {#each layout.months as month (month.week)}
+        <text class="month" x={LEFT + month.week * (CELL + GAP)} y={11}>{month.label}</text>
       {/each}
-    {:else}
-      {#each layout.cells as cell (cell.day)}
-        <rect
-          x={LEFT + cell.week * (CELL + GAP)}
-          y={TOP + cell.weekday * (CELL + GAP)}
-          width={CELL}
-          height={CELL}
-          rx="2.5"
-          class="cell"
-          class:selected={selected === cell.day}
-          style:fill={`var(--heat-${level(cell.count)})`}
-        >
-          <title>{label(cell.day, cell.count)}</title>
-        </rect>
-      {/each}
-    {/if}
-  </svg>
+      <text class="weekday" x="0" y={TOP + 0 * (CELL + GAP) + 10}>一</text>
+      <text class="weekday" x="0" y={TOP + 2 * (CELL + GAP) + 10}>三</text>
+      <text class="weekday" x="0" y={TOP + 4 * (CELL + GAP) + 10}>五</text>
+      {#if onselect}
+        <!-- 可点选时整张图只占一个 Tab 位，方向键按日/周移动，回车选中。 -->
+        {#each layout.cells as cell (cell.day)}
+          <rect
+            x={LEFT + cell.week * (CELL + GAP)}
+            y={TOP + cell.weekday * (CELL + GAP)}
+            width={CELL}
+            height={CELL}
+            rx="2.5"
+            class="cell clickable"
+            class:selected={selected === cell.day}
+            style:fill={`var(--heat-${level(cell.count)})`}
+            data-day={cell.day}
+            role="button"
+            tabindex={cell.day === focusDay ? 0 : -1}
+            aria-label={label(cell.day, cell.count)}
+            aria-pressed={selected === cell.day}
+            onclick={() => choose(cell.day)}
+            onkeydown={(event) => onkey(event, cell.day)}
+          >
+            <title>{label(cell.day, cell.count)}</title>
+          </rect>
+        {/each}
+      {:else}
+        {#each layout.cells as cell (cell.day)}
+          <rect
+            x={LEFT + cell.week * (CELL + GAP)}
+            y={TOP + cell.weekday * (CELL + GAP)}
+            width={CELL}
+            height={CELL}
+            rx="2.5"
+            class="cell"
+            class:selected={selected === cell.day}
+            style:fill={`var(--heat-${level(cell.count)})`}
+          >
+            <title>{label(cell.day, cell.count)}</title>
+          </rect>
+        {/each}
+      {/if}
+    </svg>
+  </div>
+  <!-- 图例放在滚动区外面，窄屏横向滚动时仍然看得到。 -->
   <div class="legend" aria-hidden="true">
     少
     {#each [0, 1, 2, 3, 4] as step}<span style:background={`var(--heat-${step})`}></span>{/each}
@@ -138,7 +141,7 @@
 </div>
 
 <style>
-  .xw7-heatmap {
+  .scroller {
     overflow-x: auto;
     padding-bottom: 4px;
   }
