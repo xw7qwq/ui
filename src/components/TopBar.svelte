@@ -4,7 +4,7 @@
   import Logo from './Logo.svelte';
   import ThemeToggle from './ThemeToggle.svelte';
 
-  // base：面板地址。面板内部留空用相对路径；博客等外部站点传 https://lucius7.dev。
+  // base：面板地址。面板内部留空用相对路径；博客等外部站点传 SITES.panel。
   let { current = 'home', base = '', blogHref = SITES.blog, external = false } = $props();
   let signedIn = $state(false);
   // 私有栏目（记账）对访客完全不显示，登录后才出现在导航里。
